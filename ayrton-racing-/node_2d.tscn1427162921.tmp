@@ -1,0 +1,99 @@
+[gd_scene load_steps=14 format=3 uid="uid://rei6phpuerkv"]
+
+[ext_resource type="Script" uid="uid://cpiiv2ns4dhc" path="res://character_body_2d.gd" id="1_epypp"]
+[ext_resource type="Script" uid="uid://dpl5p7d0thaux" path="res://area_2d_2.gd" id="1_q6r6c"]
+[ext_resource type="Texture2D" uid="uid://bgdm0rnmnc34m" path="res://texturas-de-grama-verde.jpg" id="1_rj586"]
+[ext_resource type="Texture2D" uid="uid://b1vr2lilo5bo4" path="res://icon.svg" id="2_0hol4"]
+[ext_resource type="Texture2D" uid="uid://dqeldb2lpsoa6" path="res://—Pngtree—black winding road road city_5546467.png" id="2_kdubu"]
+[ext_resource type="Script" uid="uid://ntquigvhlhjn" path="res://sprite_2d.gd" id="3_q6r6c"]
+[ext_resource type="Script" uid="uid://btanx0ooe0t72" path="res://area_2d.gd" id="4_0hol4"]
+[ext_resource type="Texture2D" uid="uid://cvmf85lghnx1m" path="res://images.png" id="7_4d7sh"]
+[ext_resource type="Texture2D" uid="uid://bnc2ca011ry0g" path="res://flamengo.png" id="9_ir8iy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kdubu"]
+size = Vector2(11014, 442.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6r6c"]
+size = Vector2(83, 85)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
+size = Vector2(114, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hqns4"]
+size = Vector2(122, 107)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="background" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(2000, 0)
+
+[node name="fundo" type="Sprite2D" parent="ParallaxBackground/background"]
+position = Vector2(51, 338)
+scale = Vector2(1.49623, 0.204751)
+texture = ExtResource("1_rj586")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(110, -81)
+motion_offset = Vector2(100, 100)
+motion_mirroring = Vector2(1, 0)
+
+[node name="road" type="Area2D" parent="."]
+script = ExtResource("1_q6r6c")
+
+[node name="rua" type="Sprite2D" parent="road"]
+position = Vector2(6128, 292)
+scale = Vector2(11.4667, 1.83729)
+texture = ExtResource("2_kdubu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="road"]
+position = Vector2(5528, 320)
+shape = SubResource("RectangleShape2D_kdubu")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(2058, 322)
+script = ExtResource("4_0hol4")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+position = Vector2(1300, 22)
+texture = ExtResource("2_0hol4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1314, 30)
+shape = SubResource("RectangleShape2D_q6r6c")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(314, 231)
+script = ExtResource("1_epypp")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(-8.50001, 0.49999)
+scale = Vector2(0.484444, 0.555555)
+texture = ExtResource("7_4d7sh")
+script = ExtResource("3_q6r6c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-8, 1)
+shape = SubResource("RectangleShape2D_epypp")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+
+[node name="Player2" type="CharacterBody2D" parent="."]
+position = Vector2(194, 428)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2"]
+position = Vector2(23, 2.5)
+shape = SubResource("RectangleShape2D_hqns4")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player2"]
+position = Vector2(24, 2)
+scale = Vector2(0.175, 0.285185)
+texture = ExtResource("9_ir8iy")
+
+[connection signal="body_exited" from="road" to="road" method="_on_body_exited"]
+[connection signal="input_event" from="road" to="road" method="_on_input_event"]
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
